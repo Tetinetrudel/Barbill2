@@ -1,0 +1,23 @@
+/* home page styling */
+.home {
+    display: grid;
+    grid-template-columns: 9fr 3fr;
+    padding-top: 20px;
+    width: 90%;
+    margin-inline: auto;
+}
+
+/* dashboard styling */
+.dashboard {
+    padding-top: 20px;
+    padding-right: 30px;
+}
+
+/* category filter styling */
+.category-filter {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}

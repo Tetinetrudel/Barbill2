@@ -1,0 +1,85 @@
+.navbar {
+    padding: 20px 50px;
+    border-bottom: 1px solid var(--clr-neutral-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-path h2 {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--clr-black);
+}
+
+.navbar-tools {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.navbar-search {
+    position: relative;
+}
+
+.navbar-search-input {
+    width: 250px;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid var(--clr-neutral-light);
+    color: var(--clr-black);
+    padding: 5px 20px;
+    transition: border-color 100ms ease-in;
+}
+
+.navbar-search svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    fill: var(--clr-primary);
+    left: 1px;
+}
+
+.navbar-search-input:focus {
+    border-color: var(--clr-primary);
+}
+
+.navbar-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-icon {
+    padding: 8px;
+    background-color: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 100ms ease-in;
+}
+
+.navbar-icon svg {
+    font-size: var(--text-lg);
+    fill: var(--clr-neutral-dark);
+    transition: fill 100ms ease-in;
+}
+
+.navbar-icon:hover {
+    background-color: var(--clr-neutral-lighter);
+}
+
+.navbar-icon:hover svg {
+    fill: var(--clr-black);
+}
+
+.navbar-user img {
+    border-radius: 50%;
+    border: 2px solid var(--clr-neutral-light);
+    width: 30px;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+.navbar-user img:hover {
+    box-shadow: var(--shadow);
+}
