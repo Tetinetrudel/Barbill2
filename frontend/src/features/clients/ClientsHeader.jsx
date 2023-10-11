@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import AddClient from './AddClient'
 
-import { FiUsers } from 'react-icons/Fi'
+import { FiUsers } from 'react-icons/fi'
 
 import '../../pages/clients/Clients.css'
 
