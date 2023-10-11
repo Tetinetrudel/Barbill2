@@ -15,6 +15,8 @@ import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, 
 import storage from "redux-persist/lib/storage"
 import { PersistGate } from "redux-persist/integration/react"
 
+import { disableReactDevTools } from '@fvilers/disable-react-devtools'
+
 const persistConfig = { key: "root", storage, version: 1 }
 const rootReducer = combineReducers({ authReducer, invoiceReducer })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -26,7 +28,10 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+    devTools: false
 })
+
+if(process.env.NODE_ENV === 'production') disableReactDevTools()
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(

@@ -1,4 +1,4 @@
-const apiURL = 'http://localhost:5000/users'
+const apiURL = 'https://barbill-api.onrender.com'
 
 export const fetchUserInfo = async (id) => {
     try {

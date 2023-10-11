@@ -1,4 +1,4 @@
-const apiURL = 'http://localhost:5000'
+const apiURL = 'https://barbill-api.onrender.com'
 
 export const fetchAllProducts = async (accessToken) => {
     try {
