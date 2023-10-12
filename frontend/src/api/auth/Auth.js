@@ -1,4 +1,4 @@
-const apiURL = 'http:s://barbill-api.onrender.com'
+const apiURL = 'https://barbill-api.onrender.com'
 
 export const fetchLogin = async (email, password) => {
     try {
