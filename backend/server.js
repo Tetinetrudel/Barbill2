@@ -15,7 +15,7 @@ import invoiceRoutes from './routes/invoices.js'
 import userRoutes from './routes/users.js'
 
 import { updateUser } from './controllers/users.js'
-import { CorsOptions } from './config/corsOptions.js';
+import { corsOptions } from './config/corsOptions.js';
 
 /* variable settings */
 const app = express()
