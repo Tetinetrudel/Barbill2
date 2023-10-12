@@ -15,6 +15,7 @@ import invoiceRoutes from './routes/invoices.js'
 import userRoutes from './routes/users.js'
 
 import { updateUser } from './controllers/users.js'
+import { CorsOptions } from './config/corsOptions.js';
 
 /* variable settings */
 const app = express()
@@ -27,7 +28,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors(corsOptions))
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 /* FILE STORAGE */
