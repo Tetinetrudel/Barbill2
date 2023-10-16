@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 import { fetchAllProducts } from '../../api/products/Products'
 import { fetchAddProductToClient } from '../../api/clients/Clients'
-import { fetchAllCategories } from '../../api/categories/Categories'
 
 import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
 import { BiSearch, BiChevronDown, BiChevronUp } from 'react-icons/bi'
