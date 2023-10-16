@@ -12,6 +12,7 @@ import '../../pages/clients/Clients.css'
 const ClientBill = ({ client, isUpdated, setIsUpdated, isUpdatedDetails, setIsUpdatedDetails }) => {
   const dispatch = useDispatch()
   const clientId = client._id
+
   const uniqueProductIds = new Set()
   const uniqueProducts = client.products.filter(product => {
     if (uniqueProductIds.has(product.product._id)) {
@@ -27,7 +28,7 @@ const ClientBill = ({ client, isUpdated, setIsUpdated, isUpdatedDetails, setIsUp
       productStatsMap[product.product.name] = {
         count: 1,
         sum: product.product.price,
-      };
+      }
     } else {
       productStatsMap[product.product.name].count++
       productStatsMap[product.product.name].sum += product.product.price
@@ -42,7 +43,6 @@ const ClientBill = ({ client, isUpdated, setIsUpdated, isUpdatedDetails, setIsUp
       if(result.success) {
         setIsUpdated(!isUpdated)
         setIsUpdatedDetails(!isUpdatedDetails)  
-        console.log(result.updatedClient)
       } else {
         console.error(result.message)
       }

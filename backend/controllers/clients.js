@@ -97,7 +97,9 @@ export const updateClientBill = async (req, res) => {
           return res.status(404).json({ error: 'Client or product not found.' })
         }
         
-        client.products.push({ product: productId, addedAt: Date.now() })
+        //productId.forEach((item) => {
+          client.products.push({ product: productId, addedAt: Date.now() })
+        //})
         client.status = true
 
         if (product.name.toLowerCase().includes('carte')) {
@@ -150,6 +152,9 @@ export const deleteClient = async (req, res) => {
         }
         if (client.user.toString() !== userId) {
           return res.status(403).json({ message: `Non autorisé. Vous n'êtes autorisé à supprimer ce client` })
+        }
+        if(client.products?.length || client.cards?.length) {
+          return res.status(400).json({ message: `${client.fullname} as encore des produits à son compte.`})
         }
         const deletedClient = await Clients.findByIdAndDelete(id)
         res.status(200).json({ success: true, message: `le client ${client.fullname} a été supprimé avec succès`, deletedClient })

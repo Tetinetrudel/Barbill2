@@ -1,0 +1,80 @@
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.shadow-box {
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-header {
+    margin-bottom: 30px;
+}
+
+.profile-header > h1 {
+    font-size: var(--text-lg);
+    font-weight: var(--weight-bold);
+    color: var(--clr-primary);
+}
+
+.profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profile-content-item {
+    display: flex;
+    align-items: center;
+}
+
+.profile-content-item > h3 {
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    color: var(--clr-neutral-dark);
+    margin-right: 50px;
+    width: 200px;
+}
+
+.profile-content-item > p {
+    font-size: var(--text-sm);
+    color: var(--clr-primary-darker);
+    min-width: 100px;
+    width: fit-content;
+    margin-right: 10px;
+}
+
+.update-password-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 20px;
+    border-bottom: 1px solid var(--clr-neutral-lighter);
+}
+
+.update-password-header > h1 {
+    font-size: var(--text-md);
+    font-weight: var(--weight-bold);
+    color: var(--clr-primary);
+}
+
+.update-password-header > svg {
+    cursor: pointer;
+}
+
+.update-password-content {
+    margin-top: 30px;
+    padding-inline: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.update-password-button {
+    width: 150px;
+    padding: 30px 20px;
+}

@@ -14,7 +14,6 @@ import categoryRoutes from './routes/categories.js'
 import invoiceRoutes from './routes/invoices.js'
 import userRoutes from './routes/users.js'
 
-import { updateUser } from './controllers/users.js'
 import { corsOptions } from './config/corsOptions.js';
 import { connectDB } from './config/dbConn.js';
 
@@ -48,7 +47,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
-app.patch("/users/:id", upload.single("picture"), updateUser);
+
 
 /* routes onfiguration */
 app.use('/auth', authRoutes)

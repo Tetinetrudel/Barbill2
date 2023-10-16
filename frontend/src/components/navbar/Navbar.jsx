@@ -10,7 +10,9 @@ import { dekkia } from '../../assets'
 import './Navbar.css'
 
 const Navbar = () => {
-  const location = useLocation();
+  const location = useLocation()
+  const user = useSelector((state) => state.authReducer.user)
+  const userId = useSelector((state) => state.authReducer.user._id)
 
   let currentPath 
   switch(location.pathname.substring(1)) {
@@ -29,14 +31,14 @@ const Navbar = () => {
     case "settings":
       currentPath = "Paramètres"
       break
+    case `profile/${userId}`:
+      currentPath = "Profile"
+      break
     default:
       currentPath = "Tableau de bord"
       break
   }
 
-  const user = useSelector((state) => state.authReducer.user)
-  const userId = useSelector((state) => state.authReducer.user._id)
-  console.log(user.picture)
   const [searchValue, setSearchValue] = useState("")
   const [isOpen, setIsOpen] = useState(false)
   

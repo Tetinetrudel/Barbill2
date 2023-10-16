@@ -3,18 +3,25 @@ import { useSelector } from 'react-redux'
 
 import { fetchAllProducts } from '../../api/products/Products'
 import { fetchAddProductToClient } from '../../api/clients/Clients'
+import { fetchAllCategories } from '../../api/categories/Categories'
 
-import { AiOutlineClose, AiOutlinePlus } from 'react-icons/ai'
-import { BiSearch } from 'react-icons/bi'
+import { AiOutlineClose, AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import { BiSearch, BiChevronDown, BiChevronUp } from 'react-icons/bi'
 
 import '../../pages/clients/Clients.css'
 
-
 const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdated, isUpdatedDetails, setIsUpdatedDetails }) => {
     const accessToken = useSelector((state) => state.authReducer.token)
+
     const [products, setProducts] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [queryValue, setQueryValue] = useState("")
+
+    const [selectedProducts, setSelectedProducts] = useState([])
+
+    const [showCategory, setShowCategory] = useState(null)
+
+    const uniqueCategories = Array.from(new Set(products.map(product => product.category.name)))
 
     const handleGetAllProducts = async () => {
         const result = await fetchAllProducts(accessToken)
@@ -30,13 +37,20 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
         handleGetAllProducts()
     }, [])
 
-    const handleAddProductToClient = async (productId) => {
+    useEffect(() => {
+        if(queryValue === "") {
+            setFilteredProducts(products)
+        }
+        const filtered = products.filter((product) => product.name.toLowerCase().includes(queryValue.toLowerCase()))
+        setFilteredProducts(filtered)
+    }, [queryValue])
+
+    const handleAddProductToClient = async () => {
         try {
-            const result = await fetchAddProductToClient(accessToken, clientId, productId)
+            const result = await fetchAddProductToClient(accessToken, clientId, selectedProducts)
             if(result.success) {
                 setIsUpdatedDetails(!isUpdatedDetails)
                 setIsUpdated(!isUpdated)
-                setIsOpen(false)
             } else {
                 console.error(result.message)
             }
@@ -44,10 +58,10 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
             throw new Error(error)
         }
     }
-
+    
   return (
     <div className='client-addproduct-modal-backdrop'>
-        <div className="client-addproduct-modal-wrapper">
+        <div style={{width: "600px" }} className="client-addproduct-modal-wrapper">
             <div className="client-add-product-header">
                 <div className="form-group">
                     <input 
@@ -61,15 +75,30 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
                 </div>
                 <AiOutlineClose className='icon-cursor' onClick={() => setIsOpen(!isOpen)}/>
             </div>
+
             <div className="client-addproduct-content">
-                <ul className="client-addproduct-items">
-                {filteredProducts.map((item) => (
-                    <li className='client-addproduct-item' key={item._id}>
-                        <p>{item.name}</p>
-                        <AiOutlinePlus onClick={() => handleAddProductToClient(item._id)}/>
-                    </li>
+                {uniqueCategories.map(category => (
+                    <div className="category-item" key={category}>
+                    <div className="category-item-title">
+                        <h2>{category}</h2>
+                        {showCategory === category ? <BiChevronUp onClick={() => setShowCategory(null)} /> : <BiChevronDown onClick={() => setShowCategory(category)}/>}
+                    </div>
+                    {showCategory === category && (
+                        <ul>
+                        {filteredProducts
+                            .filter(product => product.category.name === category)
+                            .map(product => (
+                            <li key={product.id}>
+                                <p>{product.name}</p>
+                            </li>
+                        ))}
+                        </ul>
+                    )}
+                    </div>
                 ))}
-                </ul>
+            </div>
+            <div className="client-addproduct-footer">
+                <button className="btn btn-blue" onClick={handleAddProductToClient}>Ajouter la sélection</button>
             </div>
         </div>
     </div>

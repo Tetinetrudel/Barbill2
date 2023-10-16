@@ -65,7 +65,7 @@ export const updateCategory = async (req, res) => {
         return res.status(404).json({ message: `Cette catégorie n'existe pas.` })
       }
       if (category.user.toString() !== userId) {
-        return res.status(403).json({ message: `Non autorisé. Vous n'êtes autorisé à supprimer cette catégorie` })
+        return res.status(403).json({ message: `Non autorisé. Vous n'êtes autorisé à modifier cette catégorie` })
       }
       if(category.name === name) {
         return res.status(402).json({ message: `la catégorie ${name} existe déjà`})
