@@ -1,1 +1,1 @@
-export const apiURL = 'https://barbill-api.render.com'
+export const apiURL = 'https://barbill-api.onrender.com'
