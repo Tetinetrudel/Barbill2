@@ -164,9 +164,11 @@ main {
   pointer-events: none;
   transition: 0.5s;
 }
+
 .form-input:focus ~ .form-svg {
   fill: var(--clr-primary);
 }
+
 .form-input:focus ~ .form-label,
 .form-input:not(:placeholder-shown).form-input:not(:focus) ~ .form-label {
     top: -15px;
@@ -216,6 +218,7 @@ main {
 .icon-cursor {
   cursor: pointer;
 }
+
 /* pills styling */
 .pills {
   --pills-bg: var(--clr-white);

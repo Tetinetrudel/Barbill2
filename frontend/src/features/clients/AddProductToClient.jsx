@@ -17,8 +17,6 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
     const [filteredProducts, setFilteredProducts] = useState([])
     const [queryValue, setQueryValue] = useState("")
 
-    const [selectedProducts, setSelectedProducts] = useState([])
-
     const [showCategory, setShowCategory] = useState(null)
 
     const uniqueCategories = Array.from(new Set(products.map(product => product.category.name)))
@@ -45,9 +43,9 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
         setFilteredProducts(filtered)
     }, [queryValue])
 
-    const handleAddProductToClient = async () => {
+    const handleAddProductToClient = async (productId) => {
         try {
-            const result = await fetchAddProductToClient(accessToken, clientId, selectedProducts)
+            const result = await fetchAddProductToClient(accessToken, clientId, productId)
             if(result.success) {
                 setIsUpdatedDetails(!isUpdatedDetails)
                 setIsUpdated(!isUpdated)
@@ -77,6 +75,7 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
             </div>
 
             <div className="client-addproduct-content">
+                {uniqueCategories.length === 0 && <p>Veuillez ajouter des produits pour en ajouter aux clients</p>}
                 {uniqueCategories.map(category => (
                     <div className="category-item" key={category}>
                     <div className="category-item-title">
@@ -90,15 +89,13 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
                             .map(product => (
                             <li key={product.id}>
                                 <p>{product.name}</p>
+                                <AiOutlinePlus onClick={() => handleAddProductToClient(product._id)} />
                             </li>
                         ))}
                         </ul>
                     )}
                     </div>
                 ))}
-            </div>
-            <div className="client-addproduct-footer">
-                <button className="btn btn-blue" onClick={handleAddProductToClient}>Ajouter la sélection</button>
             </div>
         </div>
     </div>

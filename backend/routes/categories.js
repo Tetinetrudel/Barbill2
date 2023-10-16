@@ -4,9 +4,9 @@ import requireLogin from '../middleware/auth.js'
 
 const router = express.Router()
 
-router.get('/', getCategories)
+router.get('/', requireLogin, getCategories)
 router.get('/:id', requireLogin, getCategory)
-router.post('/', addCategory)
+router.post('/', requireLogin, addCategory)
 router.patch('/:id', requireLogin, updateCategory)
 router.delete('/:id', requireLogin, deleteCategory)
 

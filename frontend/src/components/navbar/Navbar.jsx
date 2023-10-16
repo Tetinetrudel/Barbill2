@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import UserModal from '../userModal/UserModal'
 
 import { BiSearch, BiSolidMessageRoundedDetail, BiSolidBell } from 'react-icons/bi'
-import { dekkia } from '../../assets'
 
 import './Navbar.css'
 
@@ -63,10 +62,10 @@ const Navbar = () => {
           <span className="navbar-icon"><BiSolidBell /></span>
         </div>
         <div className="navbar-user">
-          <img src={`http://localhost:5000/assets/upload/${user.picture}`} alt="logo de Dek Kia" onClick={() => setIsOpen(!isOpen)} />
+          <img src={`http://localhost:5000/assets/upload/${user.picture}`} alt="logo de l'entreprise" onClick={() => setIsOpen(!isOpen)} />
         </div>
       </div>
-      {isOpen && <UserModal user={user} userId={userId} isOpen={isOpen} setIsOpen={setIsOpen} userImg={dekkia} />}
+      {isOpen && <UserModal user={user} userId={userId} isOpen={isOpen} setIsOpen={setIsOpen} />}
     </div>
   )
 }

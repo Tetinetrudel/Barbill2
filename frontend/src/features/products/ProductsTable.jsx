@@ -61,11 +61,6 @@ const ClientsTable = ({ products, filteredProducts, error, isUpdated, setIsUpdat
             <div className="col-4">Prix</div>
             <div className="col-4"></div>
         </li>
-        {error && (
-            <li className='products-table-row'>
-                <p>{error}</p>
-            </li>
-        )}
         {filteredProducts.length === 0 && (
             <li className="products-table-row">
                 <p>Aucun produits</p>

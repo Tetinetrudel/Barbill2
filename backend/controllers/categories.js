@@ -3,7 +3,7 @@ import Categories from '../models/categories.js'
 export const getCategories = async (req, res) => {
     const userId = req.userId
     try {
-        const categories = await Categories.find()
+        const categories = await Categories.find({ user: userId })
         if(categories.length === 0) {
             return res.status(404).json({ message: `Aucune catégories trouvées`})
         }
