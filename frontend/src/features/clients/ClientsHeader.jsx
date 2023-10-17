@@ -31,7 +31,7 @@ const ClientsHeader = ({ clients, props }) => {
       </div>
       <div className="clients-header-data">
         <div className="clients-box">
-          <h2>Payment en attente</h2>
+          <h2>Paiement en attente</h2>
           <h1>$ {props.totalSum.toFixed(2)}</h1>
           <div className="customers">
             <FiUsers />

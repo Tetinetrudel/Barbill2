@@ -51,7 +51,7 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
             <div className="col-1">Nom</div>
             <div className="col-2">Courriel</div>
             <div className="col-3">Status</div>
-            <div className="col-4">Montant du</div>
+            <div className="col-4">Montant dû</div>
             <div className="col-4">Depuis</div>
             <div className="col-4"></div>
         </li>
