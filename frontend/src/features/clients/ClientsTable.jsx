@@ -31,7 +31,7 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
     
     const handleDelete = async (clientId) => {
         try {
-            const result = await (fetchDeleteClient(accessToken, clientId))
+            const result = await fetchDeleteClient(accessToken, clientId)
             if(result.success) {
                 setIsUpdated(!isUpdated)
             } else {
