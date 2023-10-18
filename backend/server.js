@@ -13,6 +13,7 @@ import productRoutes from './routes/products.js'
 import categoryRoutes from './routes/categories.js'
 import invoiceRoutes from './routes/invoices.js'
 import userRoutes from './routes/users.js'
+import settingsRoutes from './routes/settings.js'
 
 import { corsOptions } from './config/corsOptions.js';
 import { connectDB } from './config/dbConn.js';
@@ -56,6 +57,7 @@ app.use('/products', productRoutes)
 app.use('/categories', categoryRoutes)
 app.use('/invoices', invoiceRoutes)
 app.use('/users', userRoutes)
+app.use('/settings', settingsRoutes)
 
 /* connection to the app */
 mongoose.connection.once('open', () => {

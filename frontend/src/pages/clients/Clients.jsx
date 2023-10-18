@@ -5,6 +5,7 @@ import ClientsHeader from '../../features/clients/ClientsHeader'
 import ClientsList from '../../features/clients/ClientsList'
 
 import { fetchAllClients } from '../../api/clients/Clients'
+import { fetchGetSettings } from '../../api/settings/Settings'
 
 import './Clients.css'
 
@@ -15,7 +16,7 @@ const Clients = () => {
   const [ filteredClients, setFilteredClients] = useState([])
   const [error, setError] = useState("")
   const [isUpdated, setIsUpdated] = useState(false)
-
+  
   const handleGetClients = async () => {
     try {
       const result = await fetchAllClients(accessToken)

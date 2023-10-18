@@ -239,7 +239,6 @@
     padding: 30px 20px;
 }
 
-
 .client-bill, .client-cards {
     min-width: 500px;
     min-height: 300px;
@@ -283,6 +282,8 @@
 
 .client-addproduct-content {
     padding: 20px 30px;
+    height: 400px;
+    overflow-y: scroll;
 }
 
 .client-addproduct-items {
@@ -305,6 +306,22 @@
     cursor: pointer;
     color: var(--clr-primary);
     font-weight: var(--weight-bold);
+}
+.hover-state {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.hover-state:hover {
+    box-shadow: var(--shadow);
+}
+
+.hover-state:hover > p {
+    font-weight: var(--weight-bold);
+}
+
+.hover-state:hover > svg {
+    font-size: var(--text-lg);
 }
 
 /* client bills styling */

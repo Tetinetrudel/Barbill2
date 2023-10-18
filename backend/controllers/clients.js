@@ -4,7 +4,7 @@ import Products from '../models/products.js'
 export const getClients = async (req, res) => {
     const userId = req.userId
     try {
-        const clients = await Clients.find({ user: userId }).populate('products.product').populate('cards')
+        const clients = await Clients.find({ user: userId }).populate('products.product').populate('cards.product')
         if(clients.length === 0) {
             return res.status(404).json({ message: `Aucun client trouvé`})
         }

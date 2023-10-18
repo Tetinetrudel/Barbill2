@@ -12,7 +12,7 @@ import '../../pages/clients/Clients.css'
 
 
 
-const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated }) => {
+const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated, setQueryFilter }) => {
     const accessToken = useSelector((state) => state.authReducer.token)
 
     const [isOpenUpdate, setIsOpenUpdate] = useState(false)
@@ -25,6 +25,7 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
     }
 
     const handleOpenDetails = (client) => {
+        setQueryFilter("")
         setClientId(client._id)
         setIsOpenDetails(!isOpenDetails)
     }
@@ -41,6 +42,16 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
             throw new Error(error)
         }
     }
+    
+    const getRemainingCount = (client) => {
+        const firstAvailableCard = client.cards.find((card) => card.count > 0)
+        if (firstAvailableCard) {
+          const productName = firstAvailableCard.product.name.slice(6,100)
+          return { count: firstAvailableCard.count, productName }
+        } else {
+          return { count: 0, productName: '' }
+        }
+    }
 
   return (
     <>
@@ -51,6 +62,7 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
             <div className="col-1">Nom</div>
             <div className="col-2">Courriel</div>
             <div className="col-3">Status</div>
+            <div className="col-3">Carte restante</div>
             <div className="col-4">Montant dû</div>
             <div className="col-4">Depuis</div>
             <div className="col-4"></div>
@@ -70,6 +82,9 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
                 <span className={`pills ${client.status === true ? 'pills-error' : 'pills-success'}`}>
                     {client.status ? "montant du" : "Payé"}
                 </span>
+            </div>
+            <div className="col-3">
+            {getRemainingCount(client).count} {getRemainingCount(client).productName}
             </div>
             <div className="col-4">{client.products.reduce((clientAccumulator, product) => clientAccumulator + product.product.price, 0).toFixed(2)} $</div>
             <div className="col-4">

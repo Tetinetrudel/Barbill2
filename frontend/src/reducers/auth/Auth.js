@@ -18,7 +18,7 @@ export const authSlice = createSlice({
       state.token = null
     },
     setUpdateUser: (state, action) => {
-      state.user = action.payload.updatedUser
+      state.user = action.payload
     },
   },
 })

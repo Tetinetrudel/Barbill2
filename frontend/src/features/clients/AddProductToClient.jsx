@@ -86,9 +86,9 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
                         {filteredProducts
                             .filter(product => product.category.name === category)
                             .map(product => (
-                            <li key={product.id}>
+                            <li key={product.id} className="hover-state" onClick={() => handleAddProductToClient(product._id)}>
                                 <p>{product.name}</p>
-                                <AiOutlinePlus onClick={() => handleAddProductToClient(product._id)} />
+                                <AiOutlinePlus className='edit-icon' />
                             </li>
                         ))}
                         </ul>

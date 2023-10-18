@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import CategorySettings from '../../features/settings/CategorySettings'
+import EmployeeSettings from '../../features/employees/EmployeeSettings'
 
 import { fetchAllCategories, fetchAddCategory, fetchDeleteCategory } from '../../api/categories/Categories'
 
 import './Settings.css'
 
-const Settings = () => {
+const Settings = ({ employeeProps }) => {
+  
   const accessToken = useSelector((state) => state.authReducer.token)
   const [categories, setCategories] = useState([])
   const [name, setName] = useState("")
@@ -64,8 +66,9 @@ const Settings = () => {
       isOpenEditCategory, setIsOpenEditCategory }
 
   return (
-    <main>
+    <main className='settings'>
       <CategorySettings props={props} />      
+      <EmployeeSettings employeeProps={employeeProps} />
     </main>
   )
 }

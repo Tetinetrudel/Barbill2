@@ -4,10 +4,10 @@ import { BiSearch } from 'react-icons/bi'
 
 import '../../pages/clients/Clients.css'
 
-const ClientsFilter = ({ clients, setFilteredClients }) => {
+const ClientsFilter = ({ clients, setFilteredClients, queryFilter, setQueryFilter }) => {
 
   const [activeFilter, setActiveFilter] = useState(0)
-  const [queryFilter, setQueryFilter] = useState("")
+  
 
   useEffect(() => {
     if(activeFilter === 0) {

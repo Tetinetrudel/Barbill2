@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { fetchUserInfo, fetchUpdateUser, fetchUpdateUserPassword } from '../../api/users/Users'
+import { setUpdateUser } from '../../reducers/auth/Auth'
 
 import './Profile.css'
 import ProfileInfo from '../../features/profile/ProfileInfo'
 import ProfileSecurity from '../../features/profile/ProfileSecurity'
 
 const Profile = () => {
-
+  const dispatch = useDispatch()
+  
   const [isUpdateCompany, setIsUpdateCompany] = useState(false)
   const [isUpdateEmail, setIsUpdateEmail] = useState(false)
   const [isUpdatePassword, setIsUpdatePassword] = useState(false)
@@ -55,6 +58,7 @@ const Profile = () => {
     setIsUpdated(!isUpdated)
     const result = await fetchUpdateUser(id, payload) 
     if(result.success) {
+      dispatch(setUpdateUser(result.updatedUser))
       setCompany("")
       setEmail("")
       setIsUpdated(false)

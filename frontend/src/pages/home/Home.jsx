@@ -15,7 +15,7 @@ const Home = () => {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(true)
   const [isUpdated, setIsUpdated] = useState(false)
-
+  
   const handleGetAllProducts = async () => {
     try {
       const result = await fetchAllProducts(accessToken)
