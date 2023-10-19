@@ -53,10 +53,6 @@ export const addClient = async (req, res) => {
             return res.status(404).json({ message: `Un client avec le courriel: ${email} existe déjà`})
         }
 
-        if (client.user.toString() !== userId) {
-          return res.status(403).json({ message: `Non autorisé. Vous n'êtes autorisé à supprimer ce client` })
-        }
-
         const newClient = new Clients({
             user: userId,
             fullname,
