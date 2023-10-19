@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 import UserModal from '../userModal/UserModal'
 
+import { apiURL } from '../../utils/apiRoute'
 import { BiSearch, BiSolidMessageRoundedDetail, BiSolidBell } from 'react-icons/bi'
 
 import './Navbar.css'
@@ -62,7 +63,7 @@ const Navbar = () => {
           <span className="navbar-icon"><BiSolidBell /></span>
         </div>
         <div className="navbar-user">
-          <img src={`http://localhost:5000/assets/upload/${user.picture}`} alt="logo de l'entreprise" onClick={() => setIsOpen(!isOpen)} />
+          <img src={`${apiURL}/assets/upload/${user.picture}`} alt="logo de l'entreprise" onClick={() => setIsOpen(!isOpen)} />
         </div>
       </div>
       {isOpen && <UserModal user={user} userId={userId} isOpen={isOpen} setIsOpen={setIsOpen} />}

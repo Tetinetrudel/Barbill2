@@ -4,12 +4,6 @@ import RefreshToken from '../models/refreshToken.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-/* ne pas oublier de mettre ces données dans le .env */
-const ACCESS_TOKEN = '17f6c87decfec54cf18b23992b3824a43a6b9c8be5ddcd9483300f06cfee8447f092fd70d0b66910d0c35825a1bfed922cf3dfb49a50066a3bdbc32ca8d61cb5' 
-const REFRESH_TOKEN = '88e3806d475bc4d55e49f9150e1ead7a50ce455270f599580c478409b97810ffccdcc2b7e283973d68b9cd5eabac0e1402a898b3de7bb63a5f66e99e67612adc' 
-const ACCESS_TOKEN_EXPIRATION_TIME = '6h'
-const REFRESH_TOKEN_EXPIRATION_TIME = '30d'
-
 export const login = async (req, res) => {
     const { email, password } = req.body
     try {
@@ -23,12 +17,12 @@ export const login = async (req, res) => {
             return res.status(401).json({ message: `Les données d'identifications sont erronées`})
         }
 
-        const accessToken = jwt.sign({ userId: user._id }, ACCESS_TOKEN, {
-            expiresIn: ACCESS_TOKEN_EXPIRATION_TIME,
+        const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN , {
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRATION_TIME,
         })
   
-        const refreshToken = jwt.sign({ userId: user._id }, REFRESH_TOKEN, {
-            expiresIn: REFRESH_TOKEN_EXPIRATION_TIME,
+        const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN , {
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRATION_TIME,
         })
   
         const newRefreshToken = new RefreshToken({ token: refreshToken })

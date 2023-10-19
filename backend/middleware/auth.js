@@ -1,8 +1,6 @@
 
 import jwt from 'jsonwebtoken'
 
-const ACCESS_TOKEN = '17f6c87decfec54cf18b23992b3824a43a6b9c8be5ddcd9483300f06cfee8447f092fd70d0b66910d0c35825a1bfed922cf3dfb49a50066a3bdbc32ca8d61cb5' 
-
 const requireLogin = (req, res, next) => {
   const authorizationHeader = req.headers.authorization
 
@@ -12,7 +10,7 @@ const requireLogin = (req, res, next) => {
 
   const accessToken = authorizationHeader.split(' ')[1]
 
-  jwt.verify(accessToken, ACCESS_TOKEN, (err, decoded) => {
+  jwt.verify(accessToken, process.env.ACCESS_TOKEN, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: `Jeton d'accès invalide ou expiré` })
     }
