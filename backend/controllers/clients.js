@@ -8,6 +8,7 @@ export const getClients = async (req, res) => {
         if(clients.length === 0) {
             return res.status(404).json({ message: `Aucun client trouvé`})
         }
+
         return res.status(200).json({success: true, clients})
     } catch (error) {
         console.error('Erreur lors de la connexion', error)
@@ -17,6 +18,7 @@ export const getClients = async (req, res) => {
 
 export const getClient = async (req, res) => {
     const { id } = req.params
+    const userId = req.userId
     try {
         const client = await Clients.findById(id)
         .populate('products.product')
@@ -24,6 +26,10 @@ export const getClient = async (req, res) => {
 
         if (!client) {
             return res.status(404).json({ message: `Le client sélectionné n'existe pas.`})
+        }
+
+        if (client.user.toString() !== userId) {
+          return res.status(403).json({ message: `Non autorisé. Vous n'êtes autorisé à supprimer ce client` })
         }
 
         return res.status(200).json({ success: true, client})
@@ -47,6 +53,9 @@ export const addClient = async (req, res) => {
             return res.status(404).json({ message: `Un client avec le courriel: ${email} existe déjà`})
         }
 
+        if (client.user.toString() !== userId) {
+          return res.status(403).json({ message: `Non autorisé. Vous n'êtes autorisé à supprimer ce client` })
+        }
 
         const newClient = new Clients({
             user: userId,
@@ -63,9 +72,10 @@ export const addClient = async (req, res) => {
 
 export const updateClient = async (req, res) => {
     const { id } = req.params
+    const userId = req.userId
     const { updatedName, updatedEmail } = req.body
     try {
-      const existingClient = await Clients.findOne({ email: updatedEmail }).exec()
+      const existingClient = await Clients.findOne({ user: userId, email: updatedEmail }).exec()
       if (existingClient && existingClient._id.toString() !== id) {
         return res.status(400).json({ message: `Cet email est déjà utilisé par un autre client` })
       }
@@ -95,17 +105,20 @@ export const updateClientBill = async (req, res) => {
     try {
         const { id } = req.params
         const { productId } = req.body
+        const userId = req.userId
     
         const client = await Clients.findById(id)
         const product = await Products.findById(productId)
 
         if (!client || !product) {
-          return res.status(404).json({ error: 'Client or product not found.' })
+          return res.status(404).json({ error: 'Aucun client ou produit retrouvé.' })
         }
-        
-        //productId.forEach((item) => {
-          client.products.push({ product: productId, addedAt: Date.now() })
-        //})
+
+        if (client.user.toString() !== userId) {
+          return res.status(403).json({ message: `Non autorisé. Vous n'êtes autorisé à supprimer ce client` })
+        }
+
+        client.products.push({ product: productId, addedAt: Date.now() })
         client.status = true
 
         if (product.name.toLowerCase().includes('carte')) {
