@@ -57,26 +57,23 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
     }
     
   return (
-    <div className='client-addproduct-modal-backdrop'>
-        <div style={{width: "600px" }} className="client-addproduct-modal-wrapper">
-            <div className="client-add-product-header">
-                <div className="form-group">
-                    <input 
-                        type="text" 
-                        className="form-input" 
-                        placeholder='Chercher un produit'
-                        value={queryValue} 
-                        onChange={(e) => setQueryValue(e.target.value)}
-                    />
-                    <BiSearch className='form-svg'/>
-                </div>
-                <AiOutlineClose className='icon-cursor' onClick={() => setIsOpen(!isOpen)}/>
+    <div style={{ minWidth: "500px"}}>
+        <div className="client-add-product-header">
+            <div className="form-group">
+                <input 
+                    type="text" 
+                    className="form-input" 
+                    placeholder='Chercher un produit'
+                    value={queryValue} 
+                    onChange={(e) => setQueryValue(e.target.value)}
+                />
+                 <BiSearch className='form-svg'/>
             </div>
-
-            <div className="client-addproduct-content">
-                {uniqueCategories.length === 0 && <p>Veuillez ajouter des produits pour en ajouter aux clients</p>}
-                {uniqueCategories.map(category => (
-                    <div className="category-item" key={category}>
+        </div>
+        <div className="client-addproduct-content">
+            {uniqueCategories.length === 0 && <p>Veuillez ajouter des produits pour en ajouter aux clients</p>}
+            {uniqueCategories.map(category => (
+                <div className="category-item" key={category}>
                     <div className="category-item-title">
                         <h2>{category}</h2>
                         {showCategory === category ? <BiChevronUp onClick={() => setShowCategory(null)} /> : <BiChevronDown onClick={() => setShowCategory(category)}/>}
@@ -93,9 +90,8 @@ const AddProductToClient = ({ clientId, isOpen, setIsOpen, isUpdated, setIsUpdat
                         ))}
                         </ul>
                     )}
-                    </div>
-                ))}
-            </div>
+                </div>
+            ))}
         </div>
     </div>
   )

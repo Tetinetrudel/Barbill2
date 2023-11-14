@@ -4,11 +4,14 @@ import { BiSearch } from 'react-icons/bi'
 
 import '../../pages/clients/Clients.css'
 
+function normalizeString(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+}
+
 const ClientsFilter = ({ clients, setFilteredClients, queryFilter, setQueryFilter }) => {
 
   const [activeFilter, setActiveFilter] = useState(0)
   
-
   useEffect(() => {
     if(activeFilter === 0) {
         setFilteredClients(clients)
@@ -27,8 +30,11 @@ const ClientsFilter = ({ clients, setFilteredClients, queryFilter, setQueryFilte
   }, [activeFilter])
 
   useEffect(() => {
-      const filtered = clients.filter((item) => item.fullname.toLowerCase().includes(queryFilter.toLowerCase()))
-      setFilteredClients(filtered)
+    const normalizedQuery = normalizeString(queryFilter)
+    const filtered = clients.filter((item) =>
+      normalizeString(item.fullname).includes(normalizedQuery)
+    )
+    setFilteredClients(filtered)
   }, [queryFilter])
 
   return (

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 
 import { fetchDeleteClient } from '../../api/clients/Clients'
 
+import Modal from '../../components/modal/Modal'
 import ClientUpdate from './ClientUpdate'
 import ClientDetails from './ClientDetails'
 
@@ -18,6 +19,7 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
     const [isOpenUpdate, setIsOpenUpdate] = useState(false)
     const [isOpenDetails, setIsOpenDetails] = useState(false)
     const [clientId, setClientId] = useState("")
+    const [clientName, setClientName] = useState("")
 
     const handleOpenUpdate = (client) => {
         setClientId(client._id)
@@ -27,9 +29,18 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
     const handleOpenDetails = (client) => {
         setQueryFilter("")
         setClientId(client._id)
+        setClientName(client.fullname)
         setIsOpenDetails(!isOpenDetails)
     }
     
+    const handleCloseDetails = () => {
+        setIsOpenDetails(!isOpenDetails)
+    }
+
+    const handleCloseUpdate = () => {
+        setIsOpenUpdate(!isOpenUpdate)
+    }
+
     const handleDelete = async (clientId) => {
         try {
             const result = await fetchDeleteClient(accessToken, clientId)
@@ -55,8 +66,25 @@ const ClientsTable = ({ clients, filteredClients, error, isUpdated, setIsUpdated
 
   return (
     <>
-    {isOpenUpdate && <ClientUpdate clients={clients} clientId={clientId} setIsOpenUpdate={setIsOpenUpdate} isUpdated={isUpdated} setIsUpdated={setIsUpdated} />}
-    {isOpenDetails && <ClientDetails clients={clients} clientId={clientId} setIsOpenDetails={setIsOpenDetails} isUpdated={isUpdated} setIsUpdated={setIsUpdated} />}
+    {isOpenUpdate && 
+    <Modal close={handleCloseUpdate} title={`Modifer ${clientName}`}>
+        <ClientUpdate 
+            clients={clients} 
+            clientId={clientId} 
+            setIsOpenUpdate={setIsOpenUpdate} 
+            isUpdated={isUpdated} 
+            setIsUpdated={setIsUpdated} />
+    </Modal>}
+    {isOpenDetails && 
+    <Modal close={handleCloseDetails} title={clientName}>
+        <ClientDetails 
+            clients={clients} 
+            clientId={clientId} 
+            setIsOpenDetails={setIsOpenDetails} 
+            isUpdated={isUpdated} 
+            setIsUpdated={setIsUpdated} 
+        />
+    </Modal>}
     <ul className="clients-table">
         <li className="clients-table-header">
             <div className="col-1">Nom</div>

@@ -36,41 +36,33 @@ const AddClient = ({ props, setIsOpen }) => {
   }
 
   return (
-    <div className='modal-backdrop'>
-      <div className="modal-wrapper">
-        <div className="client-update-header">
-          <h2>Ajouter un client</h2>
-          <AiOutlineClose onClick={() => setIsOpen(false)} />
-        </div>
-        <div className="client-update-content">
-          <form className="form">
+    <div className="client-update-content">
+        <form className="form">
             <div className="form-group">
-              <input 
-                type="text" 
-                className="form-input" 
-                value={fullname} 
-                placeholder="Nom complet"
-                onChange={(e) => setFullname(e.target.value)} 
-              />
-              <BiSolidUserDetail className='form-svg' />
+                <input 
+                    type="text" 
+                    className="form-input" 
+                    value={fullname} 
+                    placeholder="Nom complet"
+                    onChange={(e) => setFullname(e.target.value)} 
+                />
+                <BiSolidUserDetail className='form-svg' />
             </div>
             <div className="form-group">
-              <input 
-                type="text" 
-                className="form-input" 
-                value={email} 
-                placeholder="Courriel"
-                onChange={(e) => setEmail(e.target.value)} 
-              />
-              <HiMail className='form-svg' />
+                <input 
+                    type="text" 
+                    className="form-input" 
+                    value={email} 
+                    placeholder="Courriel"
+                    onChange={(e) => setEmail(e.target.value)} 
+                />
+                <HiMail className='form-svg' />
             </div>
             <div className="form-group">
-              {error && <p className="error-message">*{error}</p>}
-              <button className="btn btn-blue" onClick={handleSubmit}>Ajouter</button>
+                {error && <p className="error-message">*{error}</p>}
+                <button className="btn btn-blue" onClick={handleSubmit}>Ajouter</button>
             </div>
-          </form>
-      </div>
-      </div>
+        </form>
     </div>
   )
 }

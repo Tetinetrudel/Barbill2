@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
+import Modal from '../../components/modal/Modal'
 import ClientBill from './ClientBill'
 import ClientCards from './ClientCards'
 import AddProductToClient from './AddProductToClient'
@@ -18,7 +19,7 @@ const ClientDetails = ({ clientId, setIsOpenDetails, isUpdated, setIsUpdated }) 
     const [isUpdatedDetails, setIsUpdatedDetails] = useState(false)
     const [error, setError] = useState("")
     const [isLoading, setIsLoading] = useState(true)
-    const [isOpen, setIsOpen] = useState(false)
+    const [isOpenAddProduct, setIsOpenAddProduct] = useState(false)
 
     const handleGetClientDetails = async () => {
         try {
@@ -38,47 +39,49 @@ const ClientDetails = ({ clientId, setIsOpenDetails, isUpdated, setIsUpdated }) 
         handleGetClientDetails()
     }, [accessToken, clientId, isUpdatedDetails])
 
-    if(isLoading){ return }
+    const handleClose = () => {
+        setIsOpenAddProduct(!isOpenAddProduct)
+    }
 
   return (
-    <div className='client-update-modal-backdrop'>
-        <div className="client-update-modal-wrapper">
-            <div className="client-update-header">
-                <h2>{client.fullname}</h2>
-                <div className="client-details-action">
-                    <button className="btn btn-blue" onClick={() => setIsOpen(!isOpen)}>Ajouter</button>
-                    <AiOutlineClose onClick={() => setIsOpenDetails(false)} />
-                </div>
-            </div>
-            <div className="client-details-content">
-                <ClientBill 
-                    client={client} 
-                    isUpdated={isUpdated}
-                    setIsUpdated={setIsUpdated}
-                    isUpdatedDetails={isUpdatedDetails}
-                    setIsUpdatedDetails={setIsUpdatedDetails}
-                />
-                <ClientCards 
-                    client={client} 
-                    isUpdated={isUpdated}
-                    setIsUpdated={setIsUpdated}
-                    isUpdatedDetails={isUpdatedDetails}
-                    setIsUpdatedDetails={setIsUpdatedDetails}
-                />
-            </div>
-        </div>
-        {isOpen && 
+    <>
+    <button 
+        style={{ width: "150px", marginTop: "20px", marginLeft: "20px"}}
+        className="btn btn-blue" onClick={() => setIsOpenAddProduct(!isOpenAddProduct)}
+    >Ajouter à la facture</button>
+    <div className="client-details-content">
+        {!isLoading && 
+        <>
+        <ClientBill 
+            client={client} 
+            isUpdated={isUpdated}
+            setIsUpdated={setIsUpdated}
+            isUpdatedDetails={isUpdatedDetails}
+            setIsUpdatedDetails={setIsUpdatedDetails}
+        />
+        <ClientCards 
+            client={client} 
+            isUpdated={isUpdated}
+            setIsUpdated={setIsUpdated}
+            isUpdatedDetails={isUpdatedDetails}
+            setIsUpdatedDetails={setIsUpdatedDetails}
+        />
+        </>
+        }
+    </div>
+    {isOpenAddProduct && 
+        <Modal close={handleClose} title="Ajouter un produit">
             <AddProductToClient 
                 clientId={clientId} 
-                isOpen={isOpen} 
-                setIsOpen={setIsOpen}
+                setIsOpenAddProduct={setIsOpenAddProduct}
                 isUpdated={isUpdated}
                 setIsUpdated={setIsUpdated}
                 isUpdatedDetails={isUpdatedDetails}
                 setIsUpdatedDetails={setIsUpdatedDetails}
             />
-        }
-  </div>
+        </Modal>
+    }
+    </>
   )
 }
 

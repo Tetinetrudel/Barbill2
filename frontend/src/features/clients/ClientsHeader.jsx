@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import Modal from '../../components/modal/Modal'
 import AddClient from './AddClient'
 
 import { FiUsers } from 'react-icons/fi'
@@ -20,9 +21,16 @@ const ClientsHeader = ({ clients, props }) => {
     totalClient = 0
   }
 
+  const handleCloseModal = () => {
+    setIsOpen(!isOpen)
+  }
   return (
     <div className='clients-header'>
-      {isOpen && <AddClient props={props} isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isOpen && 
+      <Modal isOpen={isOpen} close={handleCloseModal} title="Ajouter un client">
+        <AddClient props={props} setIsOpen={setIsOpen} />
+      </Modal>
+      }
       <div className="clients-header-title">
         <h1>Liste des clients</h1>
         <div className="clients-header-button">

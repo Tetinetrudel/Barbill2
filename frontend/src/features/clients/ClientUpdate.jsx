@@ -38,29 +38,21 @@ const ClientUpdate = ({ clients, clientId, setIsOpenUpdate, isUpdated, setIsUpda
   }
 
   return (
-    <div className='client-update-modal-backdrop'>
-      <div className="client-update-modal-wrapper">
-        <div className="client-update-header">
-          <h2>Modifier les informations</h2>
-          <AiOutlineClose onClick={() => setIsOpen(false)} />
-        </div>
-        <div className="client-update-content">
+      <div className="client-update-content">
           <form className="form">
-            <div className="form-group">
-              <input type="text" className="form-input" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
-              <BiSolidUserDetail className='form-svg' />
-            </div>
-            <div className="form-group">
-              <input type="text" className="form-input" value={updatedEmail} onChange={(e) => setUpdatedEmail(e.target.value)} />
-              <HiMail className='form-svg' />
-            </div>
-            <div className="form-group">
-              {error && <p className="error-message">*{error}</p>}
-              <button className="btn btn-blue" onClick={(e) => handleSubmit(e, client[0]._id)}>Modifier</button>
-            </div>
-          </form>
-      </div>
-      </div>
+              <div className="form-group">
+                  <input type="text" className="form-input" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
+                  <BiSolidUserDetail className='form-svg' />
+              </div>
+              <div className="form-group">
+                  <input type="text" className="form-input" value={updatedEmail} onChange={(e) => setUpdatedEmail(e.target.value)} />
+                  <HiMail className='form-svg' />
+              </div>
+              <div className="form-group">
+                  {error && <p className="error-message">*{error}</p>}
+                  <button className="btn btn-blue" onClick={(e) => handleSubmit(e, client[0]._id)}>Modifier</button>
+              </div>
+        </form>
     </div>
   )
 }
